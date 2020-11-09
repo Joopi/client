@@ -33,6 +33,11 @@ class PlayerAppearance : IdentityMapper.Class() {
     class isFemale : InstanceField() {
         override val predicate = predicateOf<Field2> { it.type == BOOLEAN_TYPE }
     }
+    
+    @DependsOn(getModel::class)
+    class modelId : OrderMapper.InMethod.Field(getModel::class, 1) {
+        override val predicate = predicateOf<Instruction2> { it.opcode == GETFIELD && it.fieldType == LONG_TYPE }
+    }
 
     @DependsOn(getModel::class)
     class equipment : OrderMapper.InMethod.Field(getModel::class, 0) {
